@@ -187,6 +187,11 @@ bool AreInputsStandard(const CTransaction& tx, const CCoinsViewCache& mapInputs,
         } else if (whichType == TxoutType::WITNESS_V1_TAPROOT) {
             // Don't allow Taproot spends unless Taproot is active.
             if (!taproot_active) return false;
+        } else if (whichType == TxoutType::TX_BARE_DEFAULT_CHECK_TEMPLATE_VERIFY_HASH) {
+            // after activation, only allow bare with no scriptsig.
+            // pre-activation disallowing enforced via discouraged logic in the
+            // interpreter.
+            if (tx.vin[i].scriptSig.size() != 0) return false;
         }
     }
 

@@ -598,9 +598,10 @@ static RPCHelpMan decodescript()
     UniValue type;
     type = find_value(r, "type");
 
-    if (type.isStr() && type.get_str() != "scripthash") {
+    if (type.isStr() && type.get_str() != "scripthash" && type.get_str() != "bare_default_ctv_hash") {
         // P2SH cannot be wrapped in a P2SH. If this script is already a P2SH,
         // don't return the address for a P2SH of the P2SH.
+        // Bare CTV cannot be wrapped in a P2SH.
         r.pushKV("p2sh", EncodeDestination(ScriptHash(script)));
         // P2SH and witness programs cannot be wrapped in P2WSH, if this script
         // is a witness program, don't return addresses for a segwit programs.
