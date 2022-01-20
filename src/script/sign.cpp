@@ -21,7 +21,7 @@ MutableTransactionSignatureCreator::MutableTransactionSignatureCreator(const CMu
 {
 }
 
-MutableTransactionSignatureCreator::MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, const PrecomputedTransactionData* txdata, int nHashTypeIn)
+MutableTransactionSignatureCreator::MutableTransactionSignatureCreator(const CMutableTransaction* txToIn, unsigned int nInIn, const CAmount& amountIn, PrecomputedTransactionData* txdata, int nHashTypeIn)
     : txTo(txToIn), nIn(nInIn), nHashType(nHashTypeIn), amount(amountIn),
       checker(txdata ? MutableTransactionSignatureChecker(txTo, nIn, amount, *txdata, MissingDataBehavior::FAIL) :
           MutableTransactionSignatureChecker(txTo, nIn, amount, MissingDataBehavior::FAIL)),
